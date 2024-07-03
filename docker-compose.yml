@@ -1,0 +1,24 @@
+services:
+
+  traefik:
+    image: traefik:v2.10
+
+  mariadb:
+    image: mariadb:10.11
+
+  selenium:
+    image:
+      selenium/standalone-chromium:126.0
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.5.1
+    environment:
+      MEILI_NO_ANALYTICS: "true"
+
+  php:
+    build:
+      context: .
+      target: base
+    depends_on:
+      - traefik
+      - mariadb

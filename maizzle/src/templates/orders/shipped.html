@@ -1,0 +1,132 @@
+<x-main>
+	<div class="bg-slate-50 sm:px-4 font-sans">
+		<table align="center">
+			<tr>
+				<td class="w-[600px] max-w-full">
+					<div class="my-12 sm:my-8 text-center">
+						<a href="https://meestermac.nl">
+							<img src="@{{asset('images/emails/maizzle.png')}}" width="70" alt="Meester Mac">
+						</a>
+					</div>
+
+					<table class="w-full">
+						<tr>
+							<td class="p-12 sm:px-6 text-base text-slate-700 bg-white rounded shadow-sm">
+								<h1 class="m-0 text-2xl sm:leading-8 text-black font-semibold">
+									Je pakket is verzonden
+								</h1>
+								<p class="leading-1 text-slate-400">#@{{ $order->reference }}</p>
+
+								<x-spacer height="10px" />
+
+								<p>Het pakket met je bestelling is verzonden. Het wordt zo spoedig mogelijk bezorgd.</p>
+								@if(!empty($order->meta))
+									@if(array_key_exists('tracking_url', $order->meta->toArray()))
+										<a href="@{{ $order->meta->toArray()['tracking_url'] }}" class="inline-block py-4 px-6 text-sm leading-none font-semibold rounded [text-decoration:none] text-white bg-blue-500 hover:bg-blue-600">
+											<!--[if mso]><i style="letter-spacing: 27px; mso-font-width: -100%; mso-text-raise: 26pt;">&nbsp;</i><![endif]-->
+											<span style="mso-text-raise: 13pt;">Volg je pakket</span>
+											<!--[if mso]><i style="letter-spacing: 27px; mso-font-width: -100%;">&nbsp;</i><![endif]-->
+										</a>
+									@endif
+								@endif
+
+								<x-spacer height="30px" />
+								<x-divider space-y="1px" class="bg-slate-200" />
+								<table class="table-auto w-full">
+									@foreach($order->productLines as $line)
+										<tr>
+											<td class="w-2/12 py-4">
+												<img src="@{{ $line->purchasable?->getThumbnail()->getUrl('small') }}" class="rounded-lg object-contain object-center w-full h-full">
+											</td>
+											<td class="w-7/12 align-top py-4 pl-4">
+												<p class="m-0 text-gray-900">
+													@if($line->quantity > 1)
+														@{{ $line->quantity}}x
+													@endif
+													@{{ $line->description }}</p>
+												<p class="m-0 text-gray-500">@{{ $line->option }}</p>
+											</td>
+											<td class="w-3/12 align-top py-4 text-right">@{{ $line->sub_total->formatted }}</td>
+										</tr>
+									@endforeach
+
+									<tr>
+										<td colspan="3">
+											<x-divider space-y="1px" class="bg-slate-200" />
+										</td>
+									</tr>
+
+									@foreach($order->shippingLines as $shippingLine)
+									<tr>
+										<td colspan="2" class="w-10/12 align-top py-4">
+											<p class="m-0 text-gray-900">@{{ $shippingLine->description }}</p>
+										</td>
+										<td class="w-2/12 align-top py-4 text-right">@{{ $shippingLine->sub_total->formatted }}</td>
+									</tr>
+									@endforeach
+
+									<tr>
+										<td colspan="3">
+											<x-divider space-y="1px" class="bg-slate-200" />
+										</td>
+									</tr>
+
+									<tr>
+										<td colspan="2" class="w-10/12 align-top py-4">
+											<p class="m-0 text-gray-900">Totaal</p>
+										</td>
+										<td class="w-2/12 align-top py-4 text-right">@{{ $order->total->formatted }}</td>
+									</tr>
+								</table>
+								<x-divider space-y="1px" class="bg-slate-200" />
+								
+								<x-spacer height="40px" />
+								
+								<table class="table-auto w-full">
+									<tr>
+										<td><h2 class="text-lg">Afleveradres:</h2></td>
+										<td><h2 class="text-lg">Factuuradres:</h2></td>
+									</tr>
+									<tr>
+										<td>@{{$order->shippingAddress->first_name}} @{{$order->shippingAddress->last_name}}</td>
+										<td>@{{$order->billingAddress->first_name}} @{{$order->billingAddress->last_name}}</td>
+									</tr>
+									<tr>
+										<td>@{{$order->shippingAddress->line_one}}</td>
+										<td>@{{$order->billingAddress->line_one}}</td>
+									</tr>
+									<tr>
+										<td>@{{$order->shippingAddress->postcode}} @{{$order->shippingAddress->city}}</td>
+										<td>@{{$order->billingAddress->postcode}} @{{$order->billingAddress->city}}</td>
+									</tr>
+								</table>
+
+								<x-spacer height="40px" />
+
+								<p class="m-0">
+									Heel veel plezier met je aankoop! Heb je vragen over je bestelling neem dan contact op. Ik help je graag verder.
+									<br>
+									<br>
+									Met vriendelijke groeten, <br />
+									Meester Mac
+								</p>
+							</td>
+						</tr>
+						<tr role="separator">
+							<td class="leading-12">&zwj;</td>
+						</tr>
+						<tr>
+							<td class="text-center text-slate-600 text-xs px-6">
+								<p class="cursor-default">
+									<a href="https://meestermac.nl/" class="text-blue-700 [text-decoration:none] hover:![text-decoration:underline]">Meester Mac</a>
+									&bull;
+									<a href="https://meestermac.nl/contact" class="text-blue-700 [text-decoration:none] hover:![text-decoration:underline]">Contact</a>
+								</p>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+</x-main>
