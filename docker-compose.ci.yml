@@ -4,12 +4,14 @@ services:
     networks:
       - ci
     environment:
-        MYSQL_ROOT_PASSWORD: "rootpassword"
-        MYSQL_DATABASE: "laravel_testing"
-        MYSQL_USER: "mysqluser"
-        MYSQL_PASSWORD: "mysqlpassword"
+      MYSQL_ROOT_PASSWORD: "rootpassword"
+      MYSQL_DATABASE: "laravel_testing"
+      MYSQL_USER: "mysqluser"
+      MYSQL_PASSWORD: "mysqlpassword"
 
   php:
+    build:
+      target: ci
     networks:
       - ci
     volumes:
@@ -25,7 +27,7 @@ services:
     volumes:
       - .:/usr/src/app/
     working_dir: /usr/src/app/
-    networks: 
+    networks:
       - ci
 
   mailpit:
