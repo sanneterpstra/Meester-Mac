@@ -18,7 +18,7 @@ services:
   php:
     build:
       context: .
-      target: base
+      target: ci
     depends_on:
       - traefik
       - mariadb
