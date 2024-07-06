@@ -18,7 +18,7 @@ services:
   php:
     build:
       context: .
-      target: production
+      target: deploy
     depends_on:
       - traefik
       - mariadb
