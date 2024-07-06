@@ -10,6 +10,8 @@ services:
       MYSQL_PASSWORD: "mysqlpassword"
 
   php:
+    build:
+      target: ci
     networks:
       - ci
     volumes:
