@@ -37,7 +37,7 @@ FROM base as ci
 # the PHP-FPM pool to run as www-data
 USER root
 RUN echo "user = www-data" >> /usr/local/etc/php-fpm.d/docker-php-serversideup-pool.conf && \
-    echo "group = www-data" >> /usr/local/etc/php-fpm.d/docker-php-serversideup-pool.conf \
+    echo "group = www-data" >> /usr/local/etc/php-fpm.d/docker-php-serversideup-pool.conf
 
 ############################################
 # Production Image
